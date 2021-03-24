@@ -1,0 +1,18 @@
+{
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
+  "eslint.validate": ["typescript", "typescriptreact"],
+  "commentTranslate.targetLanguage": "zh-CN",
+  "cSpell.words": [
+    "Unmount",
+    "Vnode",
+    "Vuex",
+    "scripthost"
+  ],
+  "git.ignoreWindowsGit27Warning": true,
+}
