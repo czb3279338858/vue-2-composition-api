@@ -8,8 +8,6 @@ import {
   Ref,
   toRefs,
 } from "@vue/composition-api";
-import _ from "lodash";
-
 const ScrollBar = defineComponent({
   props: {
     type: {
@@ -35,7 +33,7 @@ const ScrollBar = defineComponent({
   },
   emits: {
     updateTranslateRadio(updateRadio: number) {
-      return _.isNumber(updateRadio);
+      return /^0(.\d+)?$/.test(`${updateRadio}`);
     },
   },
   setup(props, { emit }) {
@@ -85,22 +83,16 @@ const ScrollBar = defineComponent({
     onMounted(() => {
       if (!block.value) return;
       let mouseDown = false;
-      let currentSite = 0;
-      block.value.addEventListener("mousedown", (e) => {
-        mouseDown = true;
-        currentSite = isX.value ? e.pageX : e.pageY;
-      });
+      block.value.addEventListener("mousedown", () => (mouseDown = true));
       document.addEventListener("mouseup", () => (mouseDown = false));
       function mousemove(e: MouseEvent) {
         if (!mouseDown) return;
-        const updateSite = isX.value ? e.pageX : e.pageY;
-        const offsetSite = updateSite - currentSite;
+        const offsetSite = isX.value ? e.movementX : e.movementY;
         const offsetRadio = offsetSite / contentLength.value;
         const updateRadio = translateRatio.value + offsetRadio;
-        currentSite = updateSite;
         emit("updateTranslateRadio", updateRadio);
       }
-      document.addEventListener("mousemove", _.throttle(mousemove, 0));
+      document.addEventListener("mousemove", mousemove);
     });
     return {
       clsWrapper,
