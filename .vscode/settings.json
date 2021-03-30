@@ -3,8 +3,7 @@
   "editor.detectIndentation": false,
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.organizeImports": true
+    "source.fixAll.eslint": true
   },
   "eslint.validate": ["typescript", "typescriptreact"],
   "commentTranslate.targetLanguage": "zh-CN",
@@ -15,4 +14,5 @@
     "scripthost"
   ],
   "git.ignoreWindowsGit27Warning": true,
+  "typescript.tsdk": "node_modules\\typescript\\lib",
 }
