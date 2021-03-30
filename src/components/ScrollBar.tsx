@@ -89,7 +89,10 @@ const ScrollBar = defineComponent({
         if (!mouseDown) return;
         const offsetSite = isX.value ? e.movementX : e.movementY;
         const offsetRadio = offsetSite / contentLength.value;
-        const updateRadio = translateRatio.value + offsetRadio;
+        let updateRadio = translateRatio.value + offsetRadio;
+        if (updateRadio < 0) updateRadio = 0;
+        if (updateRadio > 1 - blockRatio.value)
+          updateRadio = 1 - blockRatio.value;
         emit("updateTranslateRadio", updateRadio);
       }
       document.addEventListener("mousemove", mousemove);

@@ -12,7 +12,6 @@ import {
 import ScrollBar from "./ScrollBar";
 const xWidth = 14;
 const yWidth = 14;
-const seam = 0.005;
 // x滚动条样式
 const styXScroll = css`
   position: absolute;
@@ -119,21 +118,14 @@ const VirtualScroll = defineComponent({
     const xTranslateRatio = ref(0);
     const yTranslateRatio = ref(0);
     const updateTranslateRadioFactory = (type: "x" | "y") => {
-      const maxTranslateRatio =
-        1 - (type === "x" ? xBlockRatio.value : yBlockRatio.value);
       return (updateRadio: number) => {
-        if (updateRadio < 0 || updateRadio > maxTranslateRatio) return;
-        let currentRadio = updateRadio;
-        if (updateRadio < seam) currentRadio = 0;
-        if (updateRadio > maxTranslateRatio - seam)
-          currentRadio = maxTranslateRatio;
         type === "x"
-          ? (xTranslateRatio.value = currentRadio)
-          : (yTranslateRatio.value = currentRadio);
+          ? (xTranslateRatio.value = updateRadio)
+          : (yTranslateRatio.value = updateRadio);
         const xCurrentRadio =
-          type === "x" ? currentRadio : xTranslateRatio.value;
+          type === "x" ? updateRadio : xTranslateRatio.value;
         const yCurrentRadio =
-          type === "y" ? currentRadio : yTranslateRatio.value;
+          type === "y" ? updateRadio : yTranslateRatio.value;
         const xOffset = xCurrentRadio * scrollWidth.value;
         const yOffset = yCurrentRadio * scrollHeight.value;
         scroll.value?.scrollTo(xOffset, yOffset);
