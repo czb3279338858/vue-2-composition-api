@@ -54,6 +54,7 @@ const ScrollBar = defineComponent({
         width: ${isX.value ? barLength.value : barWidth.value}px;
         height: ${isX.value ? barWidth.value : barLength.value}px;
         box-sizing: border-box;
+        user-select: none;
       `
     );
     // 滚动块样式
@@ -99,7 +100,7 @@ const ScrollBar = defineComponent({
         currentSite = updateSite;
         emit("updateTranslateRadio", updateRadio);
       }
-      document.addEventListener("mousemove", _.throttle(mousemove, 100));
+      document.addEventListener("mousemove", _.throttle(mousemove, 0));
     });
     return {
       clsWrapper,
